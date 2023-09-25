@@ -21,6 +21,7 @@ share/python-wheels/
 *.log
 
 poetry.lock
+.rtx.toml
 
 .env
 .venv
