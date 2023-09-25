@@ -9,3 +9,4 @@
 ## Reporting a Vulnerability
 
 Make a new issue.
+If it is critical, mail to pikatyupokenonnori@gmail.com.
