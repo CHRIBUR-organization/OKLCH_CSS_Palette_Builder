@@ -9,4 +9,4 @@
 ## Reporting a Vulnerability
 
 Make a new issue.
-If it is critical, mail to pikatyupokenonnori@gmail.com.
+If the vulnerability is critical, mail to [chribur0309@gmail.com](chribur0309@gmail.com).

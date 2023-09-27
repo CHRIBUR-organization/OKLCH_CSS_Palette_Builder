@@ -1,3 +1,11 @@
+"""
+make_oklch_css_palette
+license: MIT License
+Copyright © 2023 CHRIBUR_. All rights reserved.
+"""
+
+__author__ = "クリバ (CHRIBUR_)"
+
 from typing import Iterator
 
 

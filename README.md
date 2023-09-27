@@ -4,7 +4,7 @@
 
 You can make OKLCH CSS palettes using this!
 
-## What's this?
+## What is this?
 
 This is a Python library which makes OKLCH CSS palettes.
 OKLCH is a perceptually uniform color space designed by Björn Ottosson in 2020 (you can read [his blog](https://bottosson.github.io/posts/oklab/)).
@@ -21,8 +21,9 @@ pip install hoge
 
 ## License
 
-MIT
+[MIT License](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/blob/main/LICENSE)
 
 ## Attention
 
-This library does not yield Tailwind CSS color names.
+- This library does not yield Tailwind CSS color names.
+- This library outputs duplicated colors; black and white.
