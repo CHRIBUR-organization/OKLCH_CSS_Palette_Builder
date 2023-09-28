@@ -16,7 +16,7 @@ So I wrote this library for CSS developers.
 ## Installation
 
 ```Shell
-pip install hoge
+pip install make_oklch_css_palette
 ```
 
 ## License

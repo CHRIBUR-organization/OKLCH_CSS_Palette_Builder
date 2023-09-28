@@ -5,8 +5,10 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
+__version__ = "1.0.0"
 
 from typing import Iterator
+from pathlib import Path
 
 
 class OklchCssPaletteBuilder:
@@ -47,11 +49,15 @@ class OklchCssPaletteBuilder:
     https://caniuse.com/?search=oklch (accessed Sep. 25, 2023).
     """
 
-    __gamut_max_chroma: tuple[tuple[str, float], ...] = (
+    __GAMUT_MAX_CHROMA: tuple[tuple[str, float], ...] = (
         ("srgb", 0.085),
         ("p3", 0.113),
         ("rec2020", 0.120),
     )
+    __MINIMUM_LIGHTNESS: int = 0
+    __MAXIMUM_LIGHTNESS: int = 100
+    __MINIMUM_HUE: int = 0
+    __MAXIMUM_HUE: int = 359
 
     def __init__(
         self,
@@ -70,44 +76,56 @@ class OklchCssPaletteBuilder:
         ----------
         min_lightness : int
             It must not be negative.
-        __max_lightness : int
+        max_lightness : int
             It must be equal or less than 100.
-        __step_lightness : int
+        step_lightness : int
             It must be positive.
-        __min_hue : int
+        min_hue : int
             It must not be negative.
-        __max_hue : int
+        max_hue : int
             It must be equal or greater than 359.
-        __step_hue : int
+        step_hue : int
             It must be positive.
 
         Raises
         ------
         ValueError
             If not 0 <= self.__min_lightness < self.__max_lightness <= 100,
-            "Illegal lightness range" error will be raised.
+            "Invalid lightness range" error will be raised.
         ValueError
             If not 0 <= self.__min_hue < self.__max_hue <= 359,
-            "Illegal hue range" error will be raised.
+            "Invalid hue range" error will be raised.
         """
         self.__min_lightness: int = min_lightness
         self.__max_lightness: int = max_lightness
-        if not 0 <= self.__min_lightness < self.__max_lightness <= 100:
-            raise ValueError("Illegal lightness range.")
+        if (
+            not OklchCssPaletteBuilder.__MINIMUM_LIGHTNESS
+            <= self.__min_lightness
+            < self.__max_lightness
+            <= OklchCssPaletteBuilder.__MAXIMUM_LIGHTNESS
+        ):
+            raise ValueError(
+                f"Invalid lightness range. Must be {OklchCssPaletteBuilder.__MINIMUM_LIGHTNESS} <= min_lightness < max_lightness <= {OklchCssPaletteBuilder.__MAXIMUM_LIGHTNESS}."
+            )
         self.__step_lightness: int = step_lightness
         self.__min_hue: int = min_hue
         self.__max_hue: int = max_hue
-        if not 0 <= self.__min_hue < self.__max_hue <= 359:
-            raise ValueError("Illegal hue range.")
+        if (
+            not OklchCssPaletteBuilder.__MINIMUM_HUE
+            <= self.__min_hue
+            < self.__max_hue
+            <= OklchCssPaletteBuilder.__MAXIMUM_HUE
+        ):
+            raise ValueError(
+                f"Invalid hue range. Must be {OklchCssPaletteBuilder.__MINIMUM_HUE} <= min_hue < max_hue <= {OklchCssPaletteBuilder.__MAXIMUM_HUE}."
+            )
         self.__step_hue: int = step_hue
-        self.__mid_lightness: float = (
-            self.__min_lightness + self.__max_lightness
-        ) / 2.0
+        self.__MID_LIGHTNESS: float = 50.0
 
     def __calc_chroma(self, lightness: int, max_chroma: float) -> float:
         """
-        The function which calculates the chroma value for a given lightness.
-        You cannot call it.
+        The function which calculates the chroma value for the given lightness.
+        You cannot call it directly.
 
         Parameters
         ----------
@@ -122,13 +140,13 @@ class OklchCssPaletteBuilder:
             The chroma value for the given lightness.
         """
         return max_chroma * (
-            -abs(lightness - self.__mid_lightness) / self.__mid_lightness + 1.0
+            -abs(lightness - self.__MID_LIGHTNESS) / self.__MID_LIGHTNESS + 1.0
         )
 
     def __css_data_iterator(self) -> Iterator[str]:
         """
         The iterator which yields the lines of the CSS file you will get.
-        You cannot call it.
+        You cannot call it directly.
 
         Yields
         ------
@@ -143,8 +161,8 @@ class OklchCssPaletteBuilder:
         )
         num_hues: int = len(hues)
         num_lightnesses: int = len(lightnesses)
-        num_gamuts: int = len(OklchCssPaletteBuilder.__gamut_max_chroma)
-        for i, gm in enumerate(OklchCssPaletteBuilder.__gamut_max_chroma):
+        num_gamuts: int = len(OklchCssPaletteBuilder.__GAMUT_MAX_CHROMA)
+        for i, gm in enumerate(OklchCssPaletteBuilder.__GAMUT_MAX_CHROMA):
             gamut, max_chroma = gm
             if gamut == "srgb":
                 header = ":root {"
@@ -185,25 +203,17 @@ class OklchCssPaletteBuilder:
         ----------
         css_filepath : str
             The path to the CSS file you will get.
-            It should be ended with ".css".
+            It must be ended with ".css".
+
+        Raises
+        ----------
+        ValueError
+            If the extension of the given path is not ".css",
+            "Invalid file extension" error will be raised.
         """
+        path = Path(css_filepath)
+        if path.suffix.lower() != ".css":
+            raise ValueError("Invalid file extension. Must be '.css'.")
+        path.parent.touch()
         with open(css_filepath, "w", encoding="utf8") as f:
-            f.writelines(map(lambda x: f"{x}\n", self.__css_data_iterator()))
-
-
-def main() -> None:
-    min_lightness = int(input("minimum lightness = "))
-    max_lightness = int(input("maximum lightness = "))
-    step_lightness = int(input("step of lightness = "))
-    min_hue = int(input("minimum hue = "))
-    max_hue = int(input("maximum hue = "))
-    step_hue = int(input("step of hue = "))
-    ocpb = OklchCssPaletteBuilder(
-        min_lightness, max_lightness, step_lightness, min_hue, max_hue, step_hue
-    )
-    css_filepath = input("CSS file path: ")
-    ocpb.make_css(css_filepath)
-
-
-if __name__ == "__main__":
-    main()
+            f.writelines(map(lambda line: f"{line}\n", self.__css_data_iterator()))

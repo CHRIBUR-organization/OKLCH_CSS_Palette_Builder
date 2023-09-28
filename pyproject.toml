@@ -1,17 +1,10 @@
 [tool.poetry]
-name = "oklch-css-palette-builder"
-dynamic = ["version"]
+name = "make_oklch_css_palette"
+version = "1.0.0"
 description = "OKLCH color palette builder written in Python."
-authors = [
-    {name = "クリバ (CHRIBUR_)", email = "chribur0309@gmail.com"}
-]
-license = {file = "LICENCE"}
+authors = ["CHRIBUR_ <chribur0309@gmail.com>"]
+license = "MIT"
 readme = "README.md"
-url = "https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder"
-classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Programming Language :: Python :: 3"
-]
 
 [tool.poetry.dependencies]
 python = ">=3.9"
@@ -22,16 +15,9 @@ black = "^23.9.1"
 mypy = "^1.5.1"
 isort = "^5.12.0"
 pyproject-flake8 = "^6.1.0"
-setuptools-scm = "^8.0.3"
-
-[tool.setuptools.dynamic]
-version = {attr = "src.version"}
-
-[tool.setuptools_scm]
-write_to = "src/_version.py"
 
 [build-system]
-requires = ["poetry-core", "setuptools", "setuptools_scm"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
@@ -40,3 +26,4 @@ profile = "black"
 [tool.flake8]
 ignore = "W503"
 extended-ignore = "E203"
+max-line-length = 88
