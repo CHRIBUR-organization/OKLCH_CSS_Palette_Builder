@@ -7,6 +7,9 @@ license = "MIT"
 homepage = "https://github.com/CHRIBUR0309"
 repository = "https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder"
 readme = "README.md"
+packages = [
+    {include = "src/modules"}
+]
 
 [tool.poetry.dependencies]
 python = ">=3.9"
