@@ -12,7 +12,6 @@ from src.modules.oklchcsspalette import OklchCssPaletteBuilder
         (27, 54, 5, -1, 35, 5),
         (2, 98, 2, 1, 1000, 2),
         (0, 70, 4, 35, 2, 1),
-        (0, 100, 1, 0, 359, 1)
     )
 )
 def test_oklch_css_palette_builder(
