@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "oklchcsspalette"
-version = "1.0.0"
+version = "1.0.2"
 description = "OKLCH color palette builder written in Python."
 authors = ["CHRIBUR_ <chribur0309@gmail.com>"]
 license = "MIT"
