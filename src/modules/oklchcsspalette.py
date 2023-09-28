@@ -1,5 +1,5 @@
 """
-make_oklch_css_palette
+oklchcsspalette
 license: MIT License
 Copyright © 2023 CHRIBUR_. All rights reserved.
 """
@@ -35,9 +35,6 @@ class OklchCssPaletteBuilder:
         the max value of hue used may be smaller than __max_hue.
     __step_hue : int
         The step value of the hue in the palette you want to use.
-    __mid_lightness : float
-        The average of the __min_lightness and __max_lightness values.
-        It is used in __calc_chroma().
 
     Notes
     ------
@@ -58,6 +55,7 @@ class OklchCssPaletteBuilder:
     __MAXIMUM_LIGHTNESS: int = 100
     __MINIMUM_HUE: int = 0
     __MAXIMUM_HUE: int = 359
+    __MEDIAN_LIGHTNESS: int = (__MINIMUM_LIGHTNESS + __MAXIMUM_LIGHTNESS) >> 1
 
     def __init__(
         self,
@@ -120,7 +118,6 @@ class OklchCssPaletteBuilder:
                 f"Invalid hue range. Must be {OklchCssPaletteBuilder.__MINIMUM_HUE} <= min_hue < max_hue <= {OklchCssPaletteBuilder.__MAXIMUM_HUE}."
             )
         self.__step_hue: int = step_hue
-        self.__MID_LIGHTNESS: float = 50.0
 
     def __calc_chroma(self, lightness: int, max_chroma: float) -> float:
         """
@@ -140,7 +137,9 @@ class OklchCssPaletteBuilder:
             The chroma value for the given lightness.
         """
         return max_chroma * (
-            -abs(lightness - self.__MID_LIGHTNESS) / self.__MID_LIGHTNESS + 1.0
+            -abs(lightness - OklchCssPaletteBuilder.__MEDIAN_LIGHTNESS)
+            / OklchCssPaletteBuilder.__MEDIAN_LIGHTNESS
+            + 1.0
         )
 
     def __css_data_iterator(self) -> Iterator[str]:
@@ -211,9 +210,11 @@ class OklchCssPaletteBuilder:
             If the extension of the given path is not ".css",
             "Invalid file extension" error will be raised.
         """
-        path = Path(css_filepath)
+        path: Path = Path(css_filepath)
         if path.suffix.lower() != ".css":
             raise ValueError("Invalid file extension. Must be '.css'.")
-        path.parent.touch()
-        with open(css_filepath, "w", encoding="utf8") as f:
+        parent: Path = path.parent
+        if not parent.exists():
+            parent.mkdir(parents=True)
+        with path.open("w", encoding="utf8") as f:
             f.writelines(map(lambda line: f"{line}\n", self.__css_data_iterator()))
