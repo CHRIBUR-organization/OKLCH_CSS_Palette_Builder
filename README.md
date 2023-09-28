@@ -1,5 +1,6 @@
 # OKLCH_CSS_Palette_Builder
 
+![PyPI - Version](https://img.shields.io/pypi/v/oklchcsspalette)
 [![CI](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/blank.yml/badge.svg)](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/blank.yml)
 [![Python package](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/python-package.yml/badge.svg)](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/python-package.yml)
 [![CodeQL](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/codeql.yml/badge.svg)](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/codeql.yml)
@@ -20,7 +21,7 @@ So I wrote this library for CSS developers.
 ## Installation
 
 ```Shell
-pip install make_oklch_css_palette
+pip install oklchcsspalette
 ```
 
 ## License
