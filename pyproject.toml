@@ -4,6 +4,8 @@ version = "1.0.0"
 description = "OKLCH color palette builder written in Python."
 authors = ["CHRIBUR_ <chribur0309@gmail.com>"]
 license = "MIT"
+homepage = "https://github.com/CHRIBUR0309"
+repository = "https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder"
 readme = "README.md"
 
 [tool.poetry.dependencies]
