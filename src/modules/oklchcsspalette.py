@@ -5,7 +5,7 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 from typing import Iterator, NamedTuple
 from pathlib import Path
