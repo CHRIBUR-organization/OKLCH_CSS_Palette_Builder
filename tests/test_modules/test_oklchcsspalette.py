@@ -26,3 +26,10 @@ def test_oklch_css_palette_builder(
         OklchCssPaletteBuilder(
             min_lightness, max_lightness, step_lightness, min_hue, max_hue, step_hue
         )
+
+
+@pytest.mark.parametrize("css_filepath", (("./foo",), ("~/foo/bar.html",)))
+def test_oklch_css_palette_make_css(css_filepath: str):
+    ocpb = OklchCssPaletteBuilder(0, 100, 1, 0, 359, 1)
+    with pytest.raises(ValueError):
+        ocpb.make_css(css_filepath)
