@@ -5,10 +5,25 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
-__version__ = "1.0.2"
+__version__ = "1.0.4"
 
-from typing import Iterator
+from typing import Iterator, NamedTuple
 from pathlib import Path
+
+
+class GamutMaxChroma(NamedTuple):
+    """
+    The data class of the given gamut and its max value of chroma.
+
+    Parameters
+    ----------
+    name : str
+        The name of the given gamut.
+    max_chroma : float
+        The max value of chroma of the given gamut.
+    """
+    name: str
+    max_chroma: float
 
 
 class OklchCssPaletteBuilder:
@@ -20,21 +35,21 @@ class OklchCssPaletteBuilder:
     Attributes
     -------
     __min_lightness : int
-        The min value of the lightness in the palette you want to use.
+        The min value of lightness in the palette you want to use.
     __max_lightness : int
-        The max value of the lightness in the palette you want to use.
+        The max value of lightness in the palette you want to use.
         Depending on the pair of __min_lightness and __step_lightness values,
         the max value of lightness used may be smaller than __max_lightness.
     __step_lightness : int
-        The step value of the lightness in the palette you want to use.
+        The step value of lightness in the palette you want to use.
     __min_hue : int
-        The min value of the hue in the palette you want to use.
+        The min value of hue in the palette you want to use.
     __max_hue : int
-        The max value of the hue in the palette you want to use.
+        The max value of hue in the palette you want to use.
         Depending on the pair of __min_hue and __step_hue values,
         the max value of hue used may be smaller than __max_hue.
     __step_hue : int
-        The step value of the hue in the palette you want to use.
+        The step value of hue in the palette you want to use.
 
     Notes
     ------
@@ -46,10 +61,10 @@ class OklchCssPaletteBuilder:
     https://caniuse.com/?search=oklch (accessed Sep. 25, 2023).
     """
 
-    __GAMUT_MAX_CHROMA: tuple[tuple[str, float], ...] = (
-        ("srgb", 0.085),
-        ("p3", 0.113),
-        ("rec2020", 0.120),
+    __GAMUT_MAX_CHROMA: tuple[GamutMaxChroma, ...] = (
+        GamutMaxChroma("srgb", 0.085),
+        GamutMaxChroma("p3", 0.113),
+        GamutMaxChroma("rec2020", 0.120),
     )
     __MINIMUM_LIGHTNESS: int = 0
     __MAXIMUM_LIGHTNESS: int = 100
