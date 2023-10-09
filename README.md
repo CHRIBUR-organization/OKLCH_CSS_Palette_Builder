@@ -35,7 +35,7 @@ from sys import argv
 from oklchcsspalette import OklchCssPaletteBuilder
 
 def main():
-    attributes = tuple(map(float, argv[1:7]))
+    attributes = tuple(map(int, argv[1:7]))
     ocpb = OklchCssPaletteBuilder(*attributes)
     ocpb.make_css(argv[7])
 
@@ -44,9 +44,9 @@ if __name__ == "__main__":
 
 ```
 
-The attributes are float values needed to calcurate chromas on OKLCH space.
+The attributes are int values needed to calcurate chromas on OKLCH space.
 
-The argv[7] is a CSS file path. It must be ended with ".css" (upper cases are ok).
+The argv[7] is a CSS file path. It must ends with ".css" (upper cases are ok).
 
 ## Contrast ratio with srgb
 
@@ -56,7 +56,7 @@ For the web accessibility, the necessary minimum of the diffs of lightnesses are
 - At least 4.5:1 (Level AA of text or Level AAA of large scale of text) -> 45
 - At least 7:1 (Level AAA of text) -> 55
 
-I calculated these values on a gray scale (chroma = 0). I have not checked on other colors (chroma > 0), but I think I will get near outputs.
+I calculated these values on a gray scale (chroma = 0). I have not checked on other colors (chroma > 0), but I think I will get similar results.
 
 With p3 and rec2020, a contrast ratio is not defined, but I think we can use these values.
 

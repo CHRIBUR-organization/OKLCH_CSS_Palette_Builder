@@ -5,7 +5,7 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 
 from typing import Iterator, NamedTuple
 from pathlib import Path
@@ -217,7 +217,7 @@ class OklchCssPaletteBuilder:
         ----------
         css_filepath : str
             The path to the CSS file you will get.
-            It must be ended with ".css".
+            It must ends with ".css".
 
         Raises
         ----------
