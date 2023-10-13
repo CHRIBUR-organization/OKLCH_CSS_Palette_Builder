@@ -64,7 +64,10 @@ class OklchCssPaletteBuilder:
     https://caniuse.com/?search=oklch (accessed Sep. 25, 2023).
     """
 
-    with Path("../data/gamut_data.txt").open(encoding="utf8") as f:
+    data_path: Path = (
+        Path(__file__).parent.joinpath("..", "data", "gamut_data.txt").resolve()
+    )
+    with data_path.open(encoding="utf8") as f:
         __buf: Iterator[list[str]] = (data.split(" ") for data in f.readlines())
     __gamut_data: Iterator[tuple[str, str]] = ((i[0], i[1]) for i in __buf)
     __GAMUT_MAX_CHROMA: tuple[GamutMaxChroma, ...] = tuple(

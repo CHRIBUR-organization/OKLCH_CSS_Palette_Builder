@@ -8,8 +8,7 @@ homepage = "https://github.com/CHRIBUR0309"
 repository = "https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder"
 readme = "README.md"
 packages = [
-    {include = "src/modules"},
-    {include = "src/data"}
+    {include = "src"}
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
