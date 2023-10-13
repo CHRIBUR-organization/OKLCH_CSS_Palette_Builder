@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "oklchcsspalette"
-version = "1.0.5"
+version = "1.1.0"
 description = "OKLCH color palette builder written in Python."
 authors = ["CHRIBUR_ <chribur0309@gmail.com>"]
 license = "MIT"
@@ -8,7 +8,19 @@ homepage = "https://github.com/CHRIBUR0309"
 repository = "https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder"
 readme = "README.md"
 packages = [
-    {include = "src/modules"}
+    {include = "src"}
+]
+exclude = [
+    "src/modules/__pycache__"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
 ]
 
 [tool.poetry.dependencies]
