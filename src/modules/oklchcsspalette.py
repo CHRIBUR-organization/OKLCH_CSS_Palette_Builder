@@ -5,7 +5,7 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
-__version__ = "1.0.5"
+__version__ = "1.1.0"
 
 from typing import Iterator, NamedTuple
 from pathlib import Path
@@ -22,6 +22,7 @@ class GamutMaxChroma(NamedTuple):
     max_chroma : float
         The max value of chroma of the given gamut.
     """
+
     name: str
     max_chroma: float
 
@@ -50,6 +51,8 @@ class OklchCssPaletteBuilder:
         the max value of hue used may be smaller than __max_hue.
     __step_hue : int
         The step value of hue in the palette you want to use.
+    __css_string : str
+        The CSS string which is calculated by this class.
 
     Notes
     ------
@@ -61,10 +64,11 @@ class OklchCssPaletteBuilder:
     https://caniuse.com/?search=oklch (accessed Sep. 25, 2023).
     """
 
-    __GAMUT_MAX_CHROMA: tuple[GamutMaxChroma, ...] = (
-        GamutMaxChroma("srgb", 0.085),
-        GamutMaxChroma("p3", 0.113),
-        GamutMaxChroma("rec2020", 0.120),
+    with Path("../data/gamut_data.txt").open(encoding="utf8") as f:
+        __buf: Iterator[list[str]] = (data.split(" ") for data in f.readlines())
+    __gamut_data: Iterator[tuple[str, str]] = ((i[0], i[1]) for i in __buf)
+    __GAMUT_MAX_CHROMA: tuple[GamutMaxChroma, ...] = tuple(
+        GamutMaxChroma(x, float(y)) for x, y in __gamut_data
     )
     __MINIMUM_LIGHTNESS: int = 0
     __MAXIMUM_LIGHTNESS: int = 100
@@ -133,6 +137,7 @@ class OklchCssPaletteBuilder:
                 f"Invalid hue range. Must be {OklchCssPaletteBuilder.__MINIMUM_HUE} <= min_hue < max_hue <= {OklchCssPaletteBuilder.__MAXIMUM_HUE}."
             )
         self.__step_hue: int = step_hue
+        self.__css_string: str = ""
 
     def __calc_chroma(self, lightness: int, max_chroma: float) -> float:
         """
@@ -171,7 +176,7 @@ class OklchCssPaletteBuilder:
             range(self.__min_lightness, self.__max_lightness + 1, self.__step_lightness)
         )
         hues: tuple[str, ...] = ("gray",) + tuple(
-            map(str, range(self.__min_hue, self.__max_hue + 1, self.__step_hue))
+            str(i) for i in range(self.__min_hue, self.__max_hue + 1, self.__step_hue)
         )
         num_hues: int = len(hues)
         num_lightnesses: int = len(lightnesses)
@@ -188,10 +193,7 @@ class OklchCssPaletteBuilder:
                 footer = "  }\n}"
             yield header
             chromas: tuple[str, ...] = tuple(
-                map(
-                    lambda x: f"{self.__calc_chroma(x, max_chroma):.5f}"[1:],
-                    lightnesses,
-                )
+                f"{self.__calc_chroma(x, max_chroma):.5f}"[1:] for x in lightnesses
             )
             for j, hue in enumerate(hues):
                 if hue == "gray":
@@ -232,4 +234,19 @@ class OklchCssPaletteBuilder:
         if not parent.exists():
             parent.mkdir(parents=True)
         with path.open("w", encoding="utf8") as f:
-            f.writelines(map(lambda line: f"{line}\n", self.__css_data_iterator()))
+            f.write(self.__str__())
+
+    def __str__(self) -> str:
+        """
+        The function which calculates the CSS string you want.
+
+        Returns
+        -------
+        str
+            The CSS string you want.
+        """
+        if self.__css_string == "":
+            self.__css_string = "".join(
+                f"{line}\n" for line in self.__css_data_iterator()
+            )
+        return self.__css_string
