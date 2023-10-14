@@ -5,7 +5,7 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 from typing import Iterator, NamedTuple
 from pathlib import Path
@@ -64,10 +64,10 @@ class OklchCssPaletteBuilder:
     https://caniuse.com/?search=oklch (accessed Sep. 25, 2023).
     """
 
-    data_path: Path = (
+    __data_path: Path = (
         Path(__file__).parent.joinpath("..", "data", "gamut_data.txt").resolve()
     )
-    with data_path.open(encoding="utf8") as f:
+    with __data_path.open(encoding="utf8") as f:
         __buf: Iterator[list[str]] = (data.split(" ") for data in f.readlines())
     __gamut_data: Iterator[tuple[str, str]] = ((i[0], i[1]) for i in __buf)
     __GAMUT_MAX_CHROMA: tuple[GamutMaxChroma, ...] = tuple(
