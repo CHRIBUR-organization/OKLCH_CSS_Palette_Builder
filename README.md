@@ -5,6 +5,7 @@
 [![CI](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/blank.yml/badge.svg)](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/blank.yml)
 [![Python package](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/python-package.yml/badge.svg)](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/python-package.yml)
 [![CodeQL](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/codeql.yml/badge.svg)](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder/actions/workflows/codeql.yml)
+[![codecov](https://codecov.io/gh/CHRIBUR0309/OKLCH_CSS_Palette_Builder/graph/badge.svg?token=8HBU4QFLE3)](https://codecov.io/gh/CHRIBUR0309/OKLCH_CSS_Palette_Builder)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 ![GitHub repo size](https://img.shields.io/github/repo-size/CHRIBUR0309/OKLCH_CSS_Palette_Builder)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1bae4f492011473689f1c6c3981320ea)](https://app.codacy.com/gh/CHRIBUR0309/OKLCH_CSS_Palette_Builder/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
