@@ -35,6 +35,7 @@ from sys import argv
 
 from oklchcsspalette import OklchCssPaletteBuilder
 
+
 def main():
     attributes = tuple(map(int, argv[1:7]))
     ocpb = OklchCssPaletteBuilder(*attributes)
