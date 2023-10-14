@@ -36,3 +36,4 @@ venv.bak/
 dmypy.json
 
 .pytest_cache/
+.coverage

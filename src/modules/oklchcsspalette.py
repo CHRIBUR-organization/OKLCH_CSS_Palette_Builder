@@ -5,26 +5,13 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
-__version__ = "1.1.1"
+__version__ = "1.2.0"
 
-from typing import Iterator, NamedTuple
+from typing import Iterator
 from pathlib import Path
 
-
-class GamutMaxChroma(NamedTuple):
-    """
-    The data class of the given gamut and its max value of chroma.
-
-    Parameters
-    ----------
-    name : str
-        The name of the given gamut.
-    max_chroma : float
-        The max value of chroma of the given gamut.
-    """
-
-    name: str
-    max_chroma: float
+from .data_loader import load_data
+from .gamutmaxchroma import GamutMaxChroma
 
 
 class OklchCssPaletteBuilder:
@@ -64,14 +51,8 @@ class OklchCssPaletteBuilder:
     https://caniuse.com/?search=oklch (accessed Sep. 25, 2023).
     """
 
-    __data_path: Path = (
-        Path(__file__).parent.joinpath("..", "data", "gamut_data.txt").resolve()
-    )
-    with __data_path.open(encoding="utf8") as f:
-        __buf: Iterator[list[str]] = (data.split(" ") for data in f.readlines())
-    __gamut_data: Iterator[tuple[str, str]] = ((i[0], i[1]) for i in __buf)
     __GAMUT_MAX_CHROMA: tuple[GamutMaxChroma, ...] = tuple(
-        GamutMaxChroma(x, float(y)) for x, y in __gamut_data
+        GamutMaxChroma(x, y) for x, y in load_data()
     )
     __MINIMUM_LIGHTNESS: int = 0
     __MAXIMUM_LIGHTNESS: int = 100
