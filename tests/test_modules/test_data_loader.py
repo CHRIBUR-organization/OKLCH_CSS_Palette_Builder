@@ -1,15 +1,25 @@
-from src.modules.data_loader import load_data
+from src.modules.data_loader import format_data, load_data
 
 
 def test_load_data():
-    EPSILON: float = pow(10, -4)
-    data: tuple[tuple[str, float], ...] = tuple(load_data())
-    d0 = data[0]
-    assert d0[0] == "srgb"
-    assert abs(d0[1] - 0.085) < EPSILON
-    d1 = data[1]
-    assert d1[0] == "p3"
-    assert abs(d1[1] - 0.113) < EPSILON
-    d2 = data[2]
-    assert d2[0] == "rec2020"
-    assert abs(d2[1] - 0.120) < EPSILON
+    data_lines: tuple[str] = tuple(load_data())
+    d0, d1, d2 = data_lines
+    assert d0 == "srgb 0.085"
+    assert d1 == "p3 0.113"
+    assert d2 == "rec2020 0.120"
+
+
+def test_format_data():
+    data_lines: list[str] = ["foo 0.5", "bar 1.0", "baz 1.5"]
+    EPSILON: float = 1e-4
+    formatted_data: tuple[tuple[str, float], ...] = tuple(format_data(data_lines))
+    d0, d1, d2 = formatted_data
+    d00, d01 = d0
+    assert d00 == "foo"
+    assert abs(d01 - 0.5) < EPSILON
+    d10, d11 = d1
+    assert d10 == "bar"
+    assert abs(d11 - 1.0) < EPSILON
+    d20, d21 = d2
+    assert d20 == "baz"
+    assert abs(d21 - 1.5) < EPSILON

@@ -5,12 +5,12 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
-__version__ = "1.2.1"
+__version__ = "1.2.2"
 
 from typing import Iterator
 from pathlib import Path
 
-from .data_loader import load_data
+from .data_loader import format_data, load_data
 from .gamutmaxchroma import GamutMaxChroma
 
 
@@ -52,7 +52,7 @@ class OklchCssPaletteBuilder:
     """
 
     __GAMUT_MAX_CHROMA: tuple[GamutMaxChroma, ...] = tuple(
-        GamutMaxChroma(x, y) for x, y in load_data()
+        GamutMaxChroma(x, y) for x, y in format_data(load_data())
     )
     __MINIMUM_LIGHTNESS: int = 0
     __MAXIMUM_LIGHTNESS: int = 100

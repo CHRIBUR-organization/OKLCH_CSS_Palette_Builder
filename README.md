@@ -23,8 +23,16 @@ So I wrote this library for CSS developers.
 
 ## Installation
 
+For Pip:
+
 ```Shell
 pip install oklchcsspalette
+```
+
+For Poetry:
+
+```Shell
+poetry add oklchcsspalette
 ```
 
 ## How to use?
@@ -42,14 +50,15 @@ def main():
     ocpb = OklchCssPaletteBuilder(*attributes)
     ocpb.make_css(argv[7])
 
+
 if __name__ == "__main__":
     main()
 
 ```
 
-The attributes are int values needed to calcurate chromas on OKLCH space.
+The `attributes` are int values needed to calcurate chromas on OKLCH space.
 
-The argv[7] is a CSS file path. It must ends with ".css" (upper cases are ok).
+The `argv[7]` is a CSS file path. It must ends with ".css" (upper cases are ok).
 
 ## Contrast ratio with srgb
 
@@ -71,3 +80,8 @@ With p3 and rec2020, a contrast ratio is not defined, but I think we can use the
 
 - This library does not yield Tailwind CSS color names.
 - This library outputs duplicated colors; black and white.
+
+## Links
+
+- [https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder](https://github.com/CHRIBUR0309/OKLCH_CSS_Palette_Builder)
+- [https://pypi.org/project/oklchcsspalette/](https://pypi.org/project/oklchcsspalette/)
