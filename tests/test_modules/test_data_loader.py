@@ -2,7 +2,7 @@ from src.modules.data_loader import format_data, load_data
 
 
 def test_load_data():
-    data_lines: list[str] = load_data()
+    data_lines: tuple[str] = tuple(load_data())
     d0, d1, d2 = data_lines
     assert d0 == "srgb 0.085"
     assert d1 == "p3 0.113"
