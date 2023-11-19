@@ -5,41 +5,41 @@ Copyright © 2023 CHRIBUR_. All rights reserved.
 """
 
 __author__ = "クリバ (CHRIBUR_)"
-__version__ = "1.2.3"
+__version__ = "1.2.4"
 
-from typing import Iterator
 from pathlib import Path
+from typing import Iterator
 
-from .data_loader import format_data, load_data
-from .gamutmaxchroma import GamutMaxChroma
+from ._data_loader import format_data, load_data
+from ._gamutmaxchroma import GamutMaxChroma
 
 
 class OklchCssPaletteBuilder:
     """
-    The builder class which builds an OKLCH CSS color palette.
+    The builder class that builds an OKLCH CSS color palette.
     OKLCH is a uniform color space designed by Björn Ottosson in 2020 [1].
     You can use it as CSS Color Module Level 4 with most modern browsers [2].
 
     Attributes
     -------
     __min_lightness : int
-        The min value of lightness in the palette you want to use.
+        The minimum value of lightness in the palette you want to use.
     __max_lightness : int
-        The max value of lightness in the palette you want to use.
+        The maximum value of lightness in the palette you want to use.
         Depending on the pair of __min_lightness and __step_lightness values,
-        the max value of lightness used may be smaller than __max_lightness.
+        the maximum value of lightness used may be smaller than __max_lightness.
     __step_lightness : int
         The step value of lightness in the palette you want to use.
     __min_hue : int
-        The min value of hue in the palette you want to use.
+        The minimum value of hue in the palette you want to use.
     __max_hue : int
-        The max value of hue in the palette you want to use.
+        The maximum value of hue in the palette you want to use.
         Depending on the pair of __min_hue and __step_hue values,
-        the max value of hue used may be smaller than __max_hue.
+        the maximum value of hue used may be smaller than __max_hue.
     __step_hue : int
         The step value of hue in the palette you want to use.
     __css_string : str
-        The CSS string which is calculated by this class.
+        The CSS string calculated by this class.
 
     Notes
     ------
@@ -157,10 +157,15 @@ class OklchCssPaletteBuilder:
             The lines of the CSS file you will get.
         """
         lightnesses: tuple[int, ...] = tuple(
-            range(self.__min_lightness, self.__max_lightness + 1, self.__step_lightness)
+            range(
+                self.__min_lightness,
+                self.__max_lightness + 1,
+                self.__step_lightness,
+            )
         )
         hues: tuple[str, ...] = ("gray",) + tuple(
-            str(i) for i in range(self.__min_hue, self.__max_hue + 1, self.__step_hue)
+            str(i)
+            for i in range(self.__min_hue, self.__max_hue + 1, self.__step_hue)
         )
         num_hues: int = len(hues)
         num_lightnesses: int = len(lightnesses)
@@ -177,7 +182,8 @@ class OklchCssPaletteBuilder:
                 footer = "  }\n}"
             yield header
             chromas: tuple[str, ...] = tuple(
-                f"{self.__calc_chroma(x, max_chroma):.5f}"[1:] for x in lightnesses
+                f"{self.__calc_chroma(x, max_chroma):.5f}"[1:]
+                for x in lightnesses
             )
             for j, hue in enumerate(hues):
                 if hue == "gray":
@@ -203,7 +209,7 @@ class OklchCssPaletteBuilder:
         ----------
         css_filepath : str
             The path to the CSS file you will get.
-            It must ends with ".css".
+            It must end with ".css".
 
         Raises
         ----------

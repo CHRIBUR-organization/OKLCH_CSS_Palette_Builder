@@ -1,1 +1,1 @@
-from . import oklchcsspalette
+from .oklchcsspalette import OklchCssPaletteBuilder

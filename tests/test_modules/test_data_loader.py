@@ -1,4 +1,4 @@
-from src.modules.data_loader import format_data, load_data
+from modules._data_loader import format_data, load_data
 
 
 def test_load_data():

@@ -14,9 +14,9 @@ You can make OKLCH CSS palettes by using this!
 
 ## What is this?
 
-This is a Python library which makes OKLCH CSS palettes.
+This is a Python library that makes OKLCH CSS palettes.
 OKLCH is a perceptually uniform color space designed by Björn Ottosson in 2020 (you can read [his blog](https://bottosson.github.io/posts/oklab/)).
-You can use it as CSS Color Module Level 4 with the most of modern browsers (check [Can I Use...](https://caniuse.com/?search=oklch)).
+You can use it as CSS Color Module Level 4 with most modern browsers (check [Can I Use...](https://caniuse.com/?search=oklch)).
 
 Although we can use [OKLCH Color Picker & Converter](https://oklch.com), I think it is not easy to use because the surface of OKLCH is not flat.
 So I wrote this library for CSS developers.
@@ -35,7 +35,7 @@ For Poetry:
 poetry add oklchcsspalette
 ```
 
-## How to use?
+## How to use this?
 
 With Python >= 3.9, you can use this library as below.
 
@@ -56,19 +56,19 @@ if __name__ == "__main__":
 
 ```
 
-The `attributes` are int values needed to calcurate chromas on OKLCH space.
+The `attributes` are int values needed to calculate chromas on OKLCH space.
 
-The `argv[7]` is a CSS file path. It must ends with ".css" (upper cases are ok).
+The `argv[7]` is a CSS file path. It must end with ".css" (upper cases are ok).
 
 ## Contrast ratio with srgb
 
-For the web accessibility, the necessary minimum of the diffs of lightnesses are below.
+For web accessibility, the necessary minimum of the diffs of lightnesses is below.
 
 - At least 3:1 (Level AA of large scale of text) -> 35
 - At least 4.5:1 (Level AA of text or Level AAA of large scale of text) -> 45
 - At least 7:1 (Level AAA of text) -> 55
 
-I calculated these values on a gray scale (chroma = 0). I have not checked on other colors (chroma > 0), but I think I will get similar results.
+I calculated these values on a grayscale (chroma = 0). I have not checked on other colors (chroma > 0), but I think I will get similar results.
 
 With p3 and rec2020, a contrast ratio is not defined, but I think we can use these values.
 

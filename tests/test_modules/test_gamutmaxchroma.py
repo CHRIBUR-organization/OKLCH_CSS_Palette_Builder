@@ -1,4 +1,4 @@
-from src.modules.gamutmaxchroma import GamutMaxChroma
+from modules._gamutmaxchroma import GamutMaxChroma
 
 
 def test_gamutmaxchroma():
